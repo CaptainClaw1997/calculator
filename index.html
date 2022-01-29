@@ -8,6 +8,42 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
+    <div id="body">
+        <div id="display-previous">
+            0123456789
+        </div>
+        <div id="display-current">
+            0123456789
+        </div>
+        <div id="buttons-container">
+            <div class="buttons-column">
+                <button class="numerical-input" data-item="7">7</button>
+                <button class="numerical-input" data-item="4">4</button>
+                <button class="numerical-input" data-item="1">1</button>
+                <button class="numerical-input" data-item=".">.</button>
+            </div>
+            <div class="buttons-column">
+                <button class="numerical-input" data-item="8">8</button>
+                <button class="numerical-input" data-item="5">5</button>
+                <button class="numerical-input" data-item="2">2</button>
+                <button class="numerical-input" data-item="0">0</button>
+            </div>
+            <div class="buttons-column">
+                <button class="numerical-input" data-item="9">9</button>
+                <button class="numerical-input" data-item="6">6</button>
+                <button class="numerical-input" data-item="3">3</button>
+                <button class="editing-input" data-item="del">DEL</button>
+            </div>
+            <div class="buttons-column">
+                <button id="clear-screen">C</button>
+                <button class="operator-input" data-item="/">/</button>
+                <button class="operator-input" data-item="*">*</button>
+                <button class="operator-input" data-item="-">-</button>
+                <button class="operator-input" data-item="+">+</button>
+                <button id="trigger-output" data-item="=">=</button>
+            </div>
+        </div>
+    </div>
     <script src="./index.js"></script>
 </body>
 </html>
