@@ -10,19 +10,19 @@
 <body>
     <div id="body">
         <div id="display-previous">
-            0123456789
+            _
         </div>
         <div id="display-current">
-            0123456789
+            0
         </div>
         <div id="buttons-container">
-            <button id="clear-screen">C</button>
+            <button id="reset">C</button>
             <div id="keypad">
                 <div class="buttons-column">
                     <button class="numerical-input" data-item="7">7</button>
                     <button class="numerical-input" data-item="4">4</button>
                     <button class="numerical-input" data-item="1">1</button>
-                    <button class="numerical-input" data-item=".">.</button>
+                    <button id="decimal-point" data-item=".">.</button>
                 </div>
                 <div class="buttons-column">
                     <button class="numerical-input" data-item="8">8</button>
@@ -34,7 +34,7 @@
                     <button class="numerical-input" data-item="9">9</button>
                     <button class="numerical-input" data-item="6">6</button>
                     <button class="numerical-input" data-item="3">3</button>
-                    <button class="editing-input" data-item="del">DEL</button>
+                    <button id="delete">DEL</button>
                 </div>
                 <div class="buttons-column">
                     <button class="operator-input" data-item="/">/</button>
@@ -42,7 +42,7 @@
                     <button class="operator-input" data-item="-">-</button>
                     <button class="operator-input" data-item="+">+</button>
                 </div>
-                <button id="trigger-output" data-item="=">=</button>
+                <button id="run-calculation" data-item="=">=</button>
             </div>
         </div>
     </div>

@@ -6,58 +6,122 @@ const subtract = function(num1, num2) {
 	return (num1 - num2);
 };
 
-const sum = function(numArray) {
-	let sum = 0;
-  numArray.forEach((num) => sum += num);
-
-  return sum;
+const multiply = function(num1, num2) {
+    return num1 * num2;
 };
 
-const multiply = function(numArray) {
-  let product = 1;
-  numArray.forEach((num) => product *= num);
-
-  return product;
+const divide = function(num1, num2) {
+    return num1 / num2;
 };
 
-const power = function(base, exponent) {
-	return Math.pow(base, exponent);
-};
+function operate(num1, operator, num2) {
 
-const factorial = function(num) {
-  let factorial = 1;
-	if (num === 0 || num === 1) return factorial;
-  else {
-    for(let i = num; i > 0; i --) {
-      factorial *= i;
-    }
-  }
-
-  return factorial;
-};
-
-function operate(num1, num2, operator) {
     switch (operator) {
         case '+':
-            return Calculator.add(num1, num2);
+            return add(num1, num2);
 
         case '-':
-            return Calculator.subtract(num1, num2);
+            return subtract(num1, num2);
         
         case '*':
-            return Calculator.multiply(num1, num2);
+            return multiply(num1, num2);
 
         case '/':
-            return Calculator.divide(num1, num2);
+            if (num2 !== 0) {
+                return divide(num1, num2);
+            } 
+            else {
+                return null;
+            }
     }
 }
 
-const buttons = [...document.querySelectorAll(buttons)];
+const hasOperator = false;
+const displayCurrent = document.querySelector("#display-current");
+const displayPrevious = document.querySelector("#display-previous");
+const buttons = [...document.querySelectorAll("button")];
+const resetButton = document.querySelector("button#reset");
+const deleteButton = document.querySelector("button#delete");
+const runCalculationButton = document.querySelector("button#run-calculation");
+const operatorInputButtons = [...document.querySelectorAll("button.operator-input")];
+const numericalInputButtons = [...document.querySelectorAll("button.numerical-input")];
+const decimalPointInputButton = document.querySelector("button#decimal-point");
 
-function addEventListenersToButtons(buttons) {
-    buttons.forEach(button => {
-        button.addEventListener("click", (e) => {
-            console.log(e.target);
-        })
-    });
-}
+
+resetButton.addEventListener("click", (e) => {
+    displayCurrent.innerText = "0";
+    displayPrevious.innerText = "_";
+});
+
+deleteButton.addEventListener("click", (e) => {
+    // Delete last character
+    if (displayCurrent.innerText.length > 1) {
+        displayCurrent.innerText = displayCurrent.innerText.slice(0, displayCurrent.innerText.length - 1);
+    } else {
+    // When down to 1 character, need to reset to default state
+        displayCurrent.innerText = "0";
+    }
+})
+
+runCalculationButton.addEventListener("click", (e) => {
+    // if just single number input, do nothing, because same number will be shown as answer
+    if (displayPrevious.innerText === "_" || displayPrevious.innerText[displayPrevious.innerText.length - 1] === "=") {
+        return;
+    }
+
+    // Gather the full expression
+    const expression = displayPrevious.innerText.toString().split(" ");
+    const num1 = parseFloat(expression[0]);
+    const operator = expression[1];
+    const num2 = parseFloat(displayCurrent.innerText);
+    const result = operate(num1, operator, num2);
+    if (result) {
+        displayPrevious.innerText += " " + displayCurrent.innerText.toString();
+        if (Math.round(result) === result) {
+            displayCurrent.innerText = result.toString();
+        } else {
+            displayCurrent.innerText = (Math.round(result * 1000) / 1000).toString();
+        }
+        displayPrevious.innerText += " =";
+    } else {
+        alert("Cannot divide by 0!");
+    }
+});
+
+operatorInputButtons.forEach((button) => { 
+    button.addEventListener("click", (e) => {
+        const pressedButton = e.target;
+
+        // need to evaluate if current expression is not empty
+        if (displayPrevious.innerText !== "_") {
+            if (displayPrevious.innerText[displayPrevious.innerText.length - 1] !== "="){
+                runCalculationButton.click();
+            } else {
+                displayPrevious.innerText = displayCurrent.innerText;
+            }
+        } 
+        displayPrevious.innerText = displayCurrent.innerText.toString() + " " + pressedButton.getAttribute("data-item");
+        displayCurrent.innerText = "0";
+    })
+});
+
+numericalInputButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+        const pressedButton = e.target;
+        const buttonData = pressedButton.getAttribute("data-item");
+        // Calculator shows "0" in default state; otherwise append
+        if (displayCurrent.innerText === "0") {
+            displayCurrent.innerText = buttonData;
+        } else {
+            displayCurrent.innerText += buttonData;
+        }
+    })
+});
+
+decimalPointInputButton.addEventListener("click", (e) => {
+    const pressedButton = e.target;
+    const decimalPoint = pressedButton.getAttribute("data-item")
+    if (displayCurrent.innerText.indexOf(decimalPoint) === -1){
+        displayCurrent.innerText += decimalPoint;
+    }
+})

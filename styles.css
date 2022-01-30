@@ -28,14 +28,14 @@
     margin-top: 10px;
 }
 
-#clear-screen,#trigger-output {
+#reset,#run-calculation {
     border-style: solid;
     border-color: rgb(85, 85, 85);
     border-width: 2px;
     border-radius: 5px;
 }
 
-#clear-screen {
+#reset {
     background-color: red;
     color: white;
     align-self: stretch;
@@ -63,7 +63,7 @@ button {
     min-width: 50px;
 }
 
-#trigger-output {
+#run-calculation {
     background-color: yellow;
     color: black;
 }
